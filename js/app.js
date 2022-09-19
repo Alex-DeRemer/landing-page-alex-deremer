@@ -1,6 +1,10 @@
 //-------------------------------  Global Variables
 
+
+// Stores all sections in an array
 const sections = Array.from(document.querySelectorAll("section"));
+
+//An empty array that will be filled with 
 const listItems = [];
 
 
@@ -50,39 +54,42 @@ buildNav(sections);
 
 
 
-// Add class 'active' to section when near top of viewport
-const activeNavItem = function()  {
-  let y = window.pageYOffset;
+// Add class 'your-active-class' to section when near top of viewport
+const activatedNavList = function()  {
+  let windowPosition = window.pageYOffset;
 
 
-  listItems.forEach(({elementSection, elementNav}) => {
-      const elementSectionTop = elementSection.offsetTop;
-      const elementSectionContent = elementSection.offsetHeight + elementSectionTop;
+  listItems.forEach( function ({elementSection})  {
+      const topSection = elementSection.offsetTop - 250;
+      const elementSectionContent = elementSection.offsetHeight + topSection;
 
       if (
-          y <= elementSectionContent && y > elementSectionTop) {
-            elementNav.classList.add('your-active-class');
+          windowPosition > topSection &&
+          windowPosition <= elementSectionContent
+      ) {
+          elementSection.classList.add('your-active-class');
       } else {
-          elementNav.classList.remove('your-active-class');
+          elementSection.classList.remove('your-active-class');
       }
   });
 };
 
+// Event Listener to scroll to your-active-class
+window.addEventListener('scroll', activatedNavList);
 
 
-// Scroll to anchor ID using scrollTO event
 
+const nav = document.getElementById('navbar__list');
 
-/**
- * End Main Functions
- * Begin Events
- * 
-*/
+nav.addEventListener('click', function (event) {
+    event.preventDefault();
 
-// Build menu 
+    listItems.forEach( function ({elementSection, elementNav})  {
+        if (elementNav === event.target) {
+            elementSection.scrollIntoView({behavior: 'smooth'});
+        }
+    });
+});
 
-// Scroll to section on link click
-
-// Set sections as active
 
 
