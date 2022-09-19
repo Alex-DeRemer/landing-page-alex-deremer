@@ -4,7 +4,8 @@
 // Stores all sections in an array
 const sections = Array.from(document.querySelectorAll("section"));
 
-//An empty array that will be filled with 
+//An empty array that will be filled with navvigation and be referenced for scroll function and
+//changing active class
 const listItems = [];
 
 
